@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 10 All Subjects Notes</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Arial', sans-serif; }
+        body { background-color: #f5f6fa; padding-bottom: 70px; display: flex; flex-direction: column; align-items: center; }
+        
+        /* ऊपर का प्रीमियम हेडर */
+        .header { width: 100%; background: linear-gradient(135deg, #008080, #00a8a8); color: white; text-align: center; padding: 15px; font-size: 20px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; display: flex; justify-content: center; align-items: center; }
+        .back-btn { position: absolute; left: 15px; background: none; border: none; color: white; font-size: 22px; cursor: pointer; display: none; }
+
+        /* प्रीमियम विज्ञापन बैनर */
+        .premium-banner { background-color: #4ade80; width: 92%; max-width: 400px; margin: 15px 0; padding: 15px; border-radius: 12px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .premium-title { color: #000; font-size: 18px; font-weight: bold; margin-bottom: 10px; }
+        .premium-btn { background-color: white; color: black; border: none; padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: bold; cursor: pointer; }
+
+        /* मुख्य 6 डिब्बों का मेनू */
+        .grid-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; width: 92%; max-width: 400px; margin-bottom: 20px; }
+        .grid-box { background-color: white; border-radius: 12px; padding: 25px 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e1e8ed; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .grid-box:active { transform: scale(0.95); }
+        .grid-icon { font-size: 35px; margin-bottom: 10px; }
+        .grid-text { font-size: 15px; font-weight: bold; color: #2c3e50; }
+
+        /* 5 विषयों की लिस्ट वाला नया स्क्रीन (शुरुआत में छिपा रहेगा) */
+        .subject-container { display: none; flex-direction: column; gap: 12px; width: 92%; max-width: 400px; margin-top: 15px; }
+        .subject-card { background-color: white; padding: 18px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e1e8ed; display: flex; align-items: center; cursor: pointer; font-size: 16px; font-weight: bold; color: #2c3e50; }
+        .subject-card:active { transform: scale(0.98); }
+        .sub-icon { font-size: 24px; margin-right: 15px; }
+
+        /* नीचे का नेविगेशन बार */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background-color: white; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #e1e8ed; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 100; }
+        .nav-item { text-align: center; color: #7f8c8d; font-size: 12px; cursor: pointer; text-decoration: none; display: flex; flex-direction: column; align-items: center; }
+        .nav-item.active { color: #008080; font-weight: bold; }
+        .nav-icon { font-size: 20px; margin-bottom: 2px; }
+    </style>
+</head>
+<body>
+
+    <!-- 1. हेडर -->
+    <div class="header">
+        <button class="back-btn" id="backBtn" onclick="showHome()">←</button>
+        <span id="headerTitle">Class 10 All Subjects Notes</span>
+    </div>
+
+    <!-- मुख्य होम स्क्रीन (6 डिब्बे) -->
+    <div id="homeScreen" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+        <div class="premium-banner" onclick="alert('प्रीमियम फीचर जल्द ही चालू होगा!')">
+            <div class="premium-title">Remove Ads + Get Premium Content</div>
+            <button class="premium-btn">Premium लें</button>
+        </div>
+
+        <div class="grid-container">
+            <div class="grid-box" onclick="showSubjects('नोट्स')">
+                <div class="grid-icon">📝</div>
+                <div class="grid-text">नोट्स</div>
+            </div>
+            <div class="grid-box" onclick="showSubjects('NCERT बुक')">
+                <div class="grid-icon">📚</div>
+                <div class="grid-text">NCERT बुक</div>
+            </div>
+            <div class="grid-box" onclick="showSubjects('NCERT समाधान')">
+                <div class="grid-icon">📋</div>
+                <div class="grid-text">NCERT समाधान</div>
+            </div>
+            <div class="grid-box" onclick="showSubjects('वीडियो कक्षाएँ')">
+                <div class="grid-icon">📺</div>
+                <div class="grid-text">वीडियो कक्षाएँ</div>
+            </div>
+            <div class="grid-box" onclick="showSubjects('ऑब्जेक्टिव प्रश्न (MCQs)')">
+                <div class="grid-icon">❓</div>
+                <div class="grid-text">ऑब्जेक्टिव प्रश्न<br>(MCQs)</div>
+            </div>
+            <div class="grid-box" onclick="showSubjects('सूत्र सारणी')">
+                <div class="grid-icon">📐</div>
+                <div class="grid-text">सूत्र सारणी</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. पांच विषयों की लिस्ट (All 5 Subjects) -->
+    <div class="subject-container" id="subjectScreen">
+        <div class="subject-card" onclick="selectSubject('Hindi')">
+            <span class="sub-icon">🍊</span> हिंदी (Hindi)
+        </div>
+        <div class="subject-card" onclick="selectSubject('Maths')">
+            <span class="sub-icon">📐</span> गणित (Maths)
+        </div>
+        <div class="subject-card" onclick="selectSubject('Science')">
+            <span class="sub-icon">🧪</span> विज्ञान (Science)
+        </div>
+        <div class="subject-card" onclick="selectSubject('SocialScience')">
+            <span class="sub-icon">🌍</span> सामाजिक विज्ञान
+        </div>
+        <div class="subject-card" onclick="selectSubject('English')">
+            <span class="sub-icon">🔤</span> अंग्रेजी (English)
+        </div>
+    </div>
+
+    <!-- 3. बॉटम नेविगेशन बार -->
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="showHome()">
+            <div class="nav-icon">🏠</div>
+            <div>होम</div>
+        </div>
+        <div class="nav-item" onclick="showSubjects('नोट्स')">
+            <div class="nav-icon">📚</div>
+            <div>नोट्स</div>
+        </div>
+        <div class="nav-item" onclick="showSubjects('वीडियो कक्षाएँ')">
+            <div class="nav-icon">▶️</div>
+            <div>वीडियो</div>
+        </div>
+        <div class="nav-item" onclick="showSubjects('ऑब्जेक्टिव प्रश्न (MCQs)')">
+            <div class="nav-icon">❓</div>
+            <div>क्विज</div>
+        </div>
+    </div>
+
+    <script>
+        var currentCategory = ""; 
+        var googleViewer = "https://google.com";
+
+        // डिब्बा दबाने पर 5 विषयों की लिस्ट खोलें
+        function showSubjects(categoryName) {
+            currentCategory = categoryName;
+            document.getElementById("homeScreen").style.display = "none";
+            document.getElementById("subjectScreen").style.display = "flex";
+            document.getElementById("backBtn").style.display = "block";
+            document.getElementById("headerTitle").innerText = categoryName + " - विषय चुनें";
+        }
+
+        // वापस होम स्क्रीन पर आने के लिए (बैक बटन)
+        function showHome() {
+            document.getElementById("homeScreen").style.display = "flex";
+            document.getElementById("subjectScreen").style.display = "none";
+            document.getElementById("backBtn").style.display = "none";
+            document.getElementById("headerTitle").innerText = "Class 10 All Subjects Notes";
+        }
+
+        // विषय चुनने पर सीधे नोट्स/सूत्र खोलें
+        function selectSubject(subjectName) {
+            if (subjectName === "Hindi") {
+                if (currentCategory === "नोट्स") {
+                    // यहाँ हिंदी नोट्स का गूगल ड्राइव लिंक डालना है
+                    var fileUrl = "https://google.comाँ_हिंदी_नोट्स_का_लिंक/view?usp=sharing";
+                    window.location.href = googleViewer + encodeURIComponent(fileUrl);
+                } else if (currentCategory === "ऑब्जेक्टिव प्रश्न (MCQs)") {
+                    // यहाँ हिंदी MCQ का गूगल ड्राइव लिंक डालना है
+                    var fileUrl = "https://google.comाँ_हिंदी_MCQ_का_लिंक/view?usp=sharing";
+                    window.location.href = googleViewer + encodeURIComponent(fileUrl);
+                } else {
+                    alert("हिंदी के लिए " + currentCategory + " जल्द ही जोड़े जाएंगे!");
+                }
+            } 
+            else if (subjectName === "Maths") {
+                if (currentCategory === "सूत्र (Formula)" || currentCategory === "सूत्र सारणी") {
+                    // यहाँ गणित के सूत्र का गूगल ड्राइव लिंक डालना है
+                    var fileUrl = "https://google.comाँ_गणित_सूत्र_का_लिंक/view?usp=sharing";
+                    window.location.href = googleViewer + encodeURIComponent(fileUrl);
+                } else {
+                    alert("गणित के लिए " + currentCategory + " जल्द ही उपलब्ध कराए जाएंगे!");
+                }
+            } 
+            else if (subjectName === "Science") {
+                alert("विज्ञान के लिए " + currentCategory + " जल्द ही उपलब्ध कराए जाएंगे!");
+            } 
+            else if (subjectName === "SocialScience") {
+                alert("सामाजिक विज्ञान के लिए " + currentCategory + " जल्द ही उपलब्ध कराए जाएंगे!");
+            }
+            else if (subjectName === "English") {
+                alert("अंग्रेजी के लिए " + currentCategory + " जल्द ही उपलब्ध कराए जाएंगे!");
+            }
+        }
+    </script>
+</body>
+</html>
