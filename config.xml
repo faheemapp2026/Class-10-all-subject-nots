@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.faheem.class10notes" version="1.0.0" xmlns="http://w3.org" xmlns:cdv="http://apache.org">
+    <name>Class 10 All Subject Notes</name>
+    <description>Class 10 students all subject notes app by Faheem.</description>
+    <author email="mofaheem3353658@gmail.com">Faheem</author>
+    <content src="index.html" />
+    <preference name="ScrollEnabled" value="false" />
+</widget>
